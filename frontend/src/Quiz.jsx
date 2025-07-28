@@ -37,6 +37,8 @@ function Quiz() {
         <Question
           question={questions[currentQuestionIndex]}
           onAnswer={handleAnswer}
+          questionNumber={currentQuestionIndex + 1}
+          totalQuestions={questions.length}
         />
       )}
     </div>
