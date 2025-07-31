@@ -1,0 +1,87 @@
+.explanation-html {
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.explanation-html h1,
+.explanation-html h2,
+.explanation-html h3,
+.explanation-html h4,
+.explanation-html h5,
+.explanation-html h6 {
+  margin: 16px 0 8px 0;
+  color: #333;
+}
+
+.explanation-html p {
+  margin: 8px 0;
+}
+
+.explanation-html ul,
+.explanation-html ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.explanation-html li {
+  margin: 4px 0;
+}
+
+.explanation-html strong,
+.explanation-html b {
+  font-weight: bold;
+}
+
+.explanation-html em,
+.explanation-html i {
+  font-style: italic;
+}
+
+.explanation-html code {
+  background-color: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.explanation-html pre {
+  background-color: #f4f4f4;
+  padding: 12px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.explanation-html blockquote {
+  border-left: 4px solid #ddd;
+  padding-left: 16px;
+  margin: 16px 0;
+  color: #666;
+}
+
+.explanation-html a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.explanation-html a:hover {
+  text-decoration: underline;
+}
+
+.explanation-html table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+}
+
+.explanation-html th,
+.explanation-html td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.explanation-html th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}

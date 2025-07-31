@@ -12,6 +12,7 @@ class Question(Base):
     title = Column(String)
     text = Column(String)
     image_url = Column(String)
+    image_explanation_url = Column(String)
     explanation = Column(String)
 
     choices = relationship("Choice", back_populates="owner")

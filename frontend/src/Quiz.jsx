@@ -4,7 +4,7 @@ import Result from "./Result";
 
 function Quiz() {
   const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(1);
   const [score, setScore] = useState(0);
   const [quizEnded, setQuizEnded] = useState(false);
 

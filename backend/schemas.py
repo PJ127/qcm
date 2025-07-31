@@ -22,6 +22,7 @@ class QuestionBase(BaseModel):
     title: str
     text: str
     image_url: str
+    image_explanation_url: str
     explanation: str
 
 

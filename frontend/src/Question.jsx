@@ -1,5 +1,6 @@
 import React from "react";
 import "./Question.css";
+import Explanation from "./Explanation";
 
 function Question({ question, onAnswer, questionNumber, totalQuestions }) {
   const [selectedChoice, setSelectedChoice] = React.useState(null);
@@ -27,12 +28,14 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
   const buttonClass = validated ? "choice-button validated" : "choice-button";
 
   return (
-    <div>
+    <div className="page">
       <h1>{question.title}</h1>
       <div className="quiz-container">
         <div className="image-container">
           <img
-            src={question.image_url}
+            src={
+              validated ? question.image_explanation_url : question.image_url
+            }
             alt="Question"
             className="question-image"
           />
@@ -77,12 +80,7 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
           </form>
         </div>
       </div>
-      {validated && (
-        <div className="explanation-container">
-          <h3>Explication :</h3>
-          <p>{question.explanation}</p>
-        </div>
-      )}
+      {validated && <Explanation question={question} />}
     </div>
   );
 }
