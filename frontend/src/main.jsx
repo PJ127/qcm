@@ -6,6 +6,6 @@ import Quiz from "./Quiz.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Quiz />
+    <App />
   </StrictMode>
 );

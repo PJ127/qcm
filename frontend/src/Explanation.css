@@ -85,3 +85,13 @@
   background-color: #f8f8f8;
   font-weight: bold;
 }
+
+.link {
+  background-color: red;
+  vertical-align: super;
+  font-size: 10px;
+  font-weight: bold;
+  color: #0066cc;
+  text-decoration: none;
+  cursor: pointer;
+}
