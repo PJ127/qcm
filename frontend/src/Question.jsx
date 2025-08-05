@@ -25,7 +25,18 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
     setValidated(false);
   }, [question]);
 
-  const buttonClass = validated ? "choice-button validated" : "choice-button";
+  const validatedClass = validated ? "validated" : "";
+
+  // Determine the answer class based on the selected choice
+  const getAnswerClass = () => {
+    if (!validated || selectedChoice === null) return "";
+    const selectedChoiceObj = question.choices.find(
+      (c) => c.id === selectedChoice
+    );
+    return selectedChoiceObj && selectedChoiceObj.is_correct
+      ? "correct"
+      : "incorrect";
+  };
 
   return (
     <div className="page">
@@ -39,6 +50,7 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
             alt="Question"
             className="question-image"
           />
+          {validated && <Explanation question={question} />}
         </div>
         <div className="question-container">
           <h2 className="question-number">
@@ -70,17 +82,26 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
                 </label>
               );
             })}
-            <button
-              type="submit"
-              className={buttonClass}
-              disabled={selectedChoice === null && !validated}
-            >
-              {validated ? "Suivant" : "Valider"}
-            </button>
+            <div id="answer-and-submit-container">
+              {validated && (
+                <span id="correct-answer" className={getAnswerClass()}>
+                  {getAnswerClass() === "correct"
+                    ? "Bonne réponse !"
+                    : "Mauvaise réponse !"}
+                </span>
+              )}
+              <button
+                type="submit"
+                id="choice-button"
+                className={validatedClass}
+                disabled={selectedChoice === null && !validated}
+              >
+                {validated ? "Suivant" : "Valider"}
+              </button>
+            </div>
           </form>
         </div>
       </div>
-      {validated && <Explanation question={question} />}
     </div>
   );
 }
