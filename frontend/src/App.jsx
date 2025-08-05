@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Quiz from "./Quiz";
 import GlobalImageHandler from "./GlobalImageHandler";
+import GlobalLinkHandler from "./GlobalLinkHandler";
 import ImageModal from "./ImageModal";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <div className="App">
         <Quiz />
         <GlobalImageHandler onImageClick={handleImageClick} />
+        <GlobalLinkHandler />
         {showImageModal && (
           <ImageModal
             imageSrc={modalImageSrc}
