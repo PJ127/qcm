@@ -3,40 +3,35 @@ import "./Question.css";
 import Explanation from "./Explanation";
 
 function Question({ question, onAnswer, questionNumber, totalQuestions }) {
-  const [selectedChoice, setSelectedChoice] = React.useState(null);
   const [validated, setValidated] = React.useState(false);
+  const [answerId, setAnswerId] = React.useState(null);
+  const [isCorrect, setIsCorrect] = React.useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validated && selectedChoice !== null) {
+
+    if (!validated) {
+      const selectedChoiceObj = question.choices.find((c) => c.id === answerId);
       setValidated(true);
+      setIsCorrect(selectedChoiceObj.is_correct);
+      setAnswerId(selectedChoiceObj.id);
     } else if (validated) {
-      // On 'Suivant', call onAnswer with the selected answer's correctness
-      const choice = question.choices.find((c) => c.id === selectedChoice);
-      onAnswer(choice.is_correct);
-      setSelectedChoice(null);
-      setValidated(false);
+      onAnswer(isCorrect);
+      question.answer_id = answerId;
+      question.validated = validated;
+      question.is_correct = isCorrect;
     }
   };
 
   // Reset state if question changes
   React.useEffect(() => {
-    setSelectedChoice(null);
-    setValidated(false);
+    setValidated(question.validated);
+    setIsCorrect(question.is_correct);
+    setAnswerId(question.answer_id);
+    question.is_reached = true;
   }, [question]);
 
   const validatedClass = validated ? "validated" : "";
-
-  // Determine the answer class based on the selected choice
-  const getAnswerClass = () => {
-    if (!validated || selectedChoice === null) return "";
-    const selectedChoiceObj = question.choices.find(
-      (c) => c.id === selectedChoice
-    );
-    return selectedChoiceObj && selectedChoiceObj.is_correct
-      ? "correct"
-      : "incorrect";
-  };
 
   return (
     <div className="page">
@@ -63,7 +58,7 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
               if (validated) {
                 if (choice.is_correct) {
                   labelClass += " correct";
-                } else if (selectedChoice === choice.id) {
+                } else if (answerId === choice.id) {
                   labelClass += " incorrect";
                 }
               }
@@ -73,9 +68,10 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
                     type="radio"
                     name="choice"
                     value={choice.id}
-                    checked={selectedChoice === choice.id}
-                    onChange={() => setSelectedChoice(choice.id)}
+                    checked={answerId === choice.id}
+                    onChange={() => setAnswerId(choice.id)}
                     className="choice-radio"
+                    required={!validated}
                     disabled={validated}
                   />
                   {choice.text}
@@ -84,17 +80,18 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
             })}
             <div id="answer-and-submit-container">
               {validated && (
-                <span id="correct-answer" className={getAnswerClass()}>
-                  {getAnswerClass() === "correct"
-                    ? "Bonne réponse !"
-                    : "Mauvaise réponse !"}
+                <span
+                  id="correct-answer"
+                  className={isCorrect ? "correct" : "incorrect"}
+                >
+                  {isCorrect ? "Bonne réponse !" : "Mauvaise réponse !"}
                 </span>
               )}
               <button
                 type="submit"
                 id="choice-button"
                 className={validatedClass}
-                disabled={selectedChoice === null && !validated}
+                disabled={answerId === null && !validated}
               >
                 {validated ? "Suivant" : "Valider"}
               </button>

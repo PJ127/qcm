@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Question from "./Question";
 import Result from "./Result";
+import History from "./History";
 
 function Quiz() {
   const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(1);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [quizEnded, setQuizEnded] = useState(false);
+  const [responses, setResponses] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/questions/")
@@ -27,6 +29,10 @@ function Quiz() {
     }
   };
 
+  const handleQuestionSelect = (index) => {
+    setCurrentQuestionIndex(index);
+  };
+
   if (quizEnded) {
     return <Result score={score} total={questions.length} />;
   }
@@ -41,6 +47,11 @@ function Quiz() {
           totalQuestions={questions.length}
         />
       )}
+      <History
+        questions={questions}
+        currentQuestionIndex={currentQuestionIndex}
+        onQuestionSelect={handleQuestionSelect}
+      />
     </div>
   );
 }

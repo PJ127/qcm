@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from typing import Optional
+
 
 class ChoiceBase(BaseModel):
     text: str
@@ -24,6 +26,10 @@ class QuestionBase(BaseModel):
     image_url: str
     image_explanation_url: str
     explanation: str
+    answer_id: Optional[int] = None
+    is_correct: bool = False
+    validated: bool = False
+    is_reached: bool = False
 
 
 class QuestionCreate(QuestionBase):

@@ -29,9 +29,7 @@ h1 {
   width: 60vw;
   margin: 30px;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: center;
 }
 .question-image {
   background-color: beige;
@@ -39,7 +37,7 @@ h1 {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  align-self: flex-start;
+  object-position: top;
   border: 1px solid #000000;
 }
 .radiobutton {
@@ -63,9 +61,14 @@ input {
 }
 
 .question-container {
-  width: 40vw;
+  width: 30vw;
   float: right;
   padding: 20px;
+}
+#history-container {
+  width: 5vw;
+  float: right;
+  padding: 5px;
 }
 .question-number {
   font-size: 24px;
@@ -103,7 +106,6 @@ input {
 }
 #correct-answer {
   margin: 30px 30px;
-  width: 30%;
   padding: 20px;
   font-size: 20px;
   border-radius: 10px;
