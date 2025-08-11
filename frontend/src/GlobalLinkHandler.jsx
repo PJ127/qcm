@@ -5,26 +5,41 @@ function GlobalLinkHandler() {
     // Function to add target="_blank" to all links
     const addLinkHandlers = () => {
       const allLinks = document.querySelectorAll("a");
-
+      let iLink = 0;
+      let sources_html = "";
       allLinks.forEach((link, index) => {
         if (link.target === "_blank") {
           return;
         }
 
-        // Add target="_blank" to external links
         if (link.href && !link.href.startsWith(window.location.origin)) {
           link.target = "_blank";
           link.rel = "noopener noreferrer"; // Security best practice
+          iLink += 1;
+          sources_html +=
+            "<li>[" +
+            iLink +
+            "] " +
+            link.innerText +
+            " : " +
+            "<a target='_blank' href=" +
+            link.href +
+            ">" +
+            link.href +
+            "</a>" +
+            "</li>";
+          link.innerHTML = "<sup>[" + iLink + "]</sup>";
         }
-        // For internal links, you can choose to add target="_blank" as well
-        // Uncomment the next lines if you want ALL links to open in new tabs
-        /*
-        else if (link.href) {
-          link.target = "_blank";
-          console.log("✅ Added target=_blank to internal link:", link.href);
-        }
-        */
       });
+      let sources_element = document.getElementById("sources");
+      if (sources_element === null) {
+        return;
+      }
+      if (iLink > 0) {
+        sources_element.hidden = false;
+        let sources_list = document.getElementById("sources_list");
+        sources_list.innerHTML = sources_html;
+      }
     };
 
     // Initial setup

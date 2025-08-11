@@ -79,6 +79,10 @@ function Explanation({ question }) {
       <div className="explanation-container">
         <h3>Explication :</h3>
         <SafeHTML html={question.explanation} />
+        <div id="sources">
+          <p id="sources_title">Sources:</p>
+          <ul id="sources_list"></ul>
+        </div>
       </div>
     </div>
   );
