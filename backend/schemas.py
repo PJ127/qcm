@@ -26,6 +26,7 @@ class QuestionBase(BaseModel):
     image_url: str
     image_explanation_url: str
     explanation: str
+    takeaway: str
     answer_id: Optional[int] = None
     is_correct: bool = False
     validated: bool = False

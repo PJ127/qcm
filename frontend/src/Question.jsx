@@ -1,6 +1,7 @@
 import React from "react";
 import "./Question.css";
 import Explanation from "./Explanation";
+import Takeaway from "./Takeaway";
 
 function Question({ question, onAnswer, questionNumber, totalQuestions }) {
   const [validated, setValidated] = React.useState(false);
@@ -96,6 +97,7 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
                 {validated ? "Suivant" : "Valider"}
               </button>
             </div>
+            {validated && <Takeaway question={question} />}
           </form>
         </div>
       </div>

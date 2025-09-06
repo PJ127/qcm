@@ -14,6 +14,7 @@ class Question(Base):
     image_url = Column(String)
     image_explanation_url = Column(String)
     explanation = Column(String)
+    takeaway = Column(String)
 
     choices = relationship("Choice", back_populates="owner")
 

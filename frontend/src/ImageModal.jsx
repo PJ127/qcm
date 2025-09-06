@@ -42,10 +42,10 @@ function ImageModal({ imageSrc, imageAlt, onClose }) {
             className="image-modal-button download-button"
             onClick={handleDownload}
           >
-            📥 Download
+            📥 Télécharger
           </button>
           <button className="image-modal-button close-button" onClick={onClose}>
-            ✕ Close
+            ✕ Fermer
           </button>
         </div>
         <div className="image-modal-body">

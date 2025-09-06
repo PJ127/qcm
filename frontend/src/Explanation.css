@@ -1,6 +1,7 @@
 .explanation-html {
   line-height: 1.6;
   font-size: 16px;
+  color: #333;
 }
 
 .explanation-html h1,
@@ -53,10 +54,13 @@
 }
 
 .explanation-html blockquote {
-  border-left: 4px solid #ddd;
-  padding-left: 16px;
-  margin: 16px 0;
-  color: #666;
+  border: 2px solid #44a;
+  align-items: center;
+  border-radius: 5px;
+  padding: 16px 30px;
+  margin: 16px 50px;
+  color: #44a;
+  font-weight: 600;
 }
 
 .explanation-html a {
@@ -102,4 +106,19 @@
 #sources_list {
   font-size: 10px;
   color: #333;
+}
+
+.explanation-question:before,
+h4:before {
+  content: "➤ ";
+}
+
+.explanation-question,
+h4 {
+  /* color: #333; */
+  /* font-size: 13px; */
+  border: solid 1px #aaa;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-style: italic;
 }
