@@ -1,12 +1,18 @@
 import React from "react";
+import "./Result.css";
 
 function Result({ score, total }) {
+  const percentage = Math.round((score / total) * 100);
+
   return (
-    <div>
-      <h2>Quiz Completed!</h2>
-      <p>
-        Your score: {score} out of {total}
-      </p>
+    <div className="result-page">
+      <div className="result-container">
+        <h2>Quiz Terminé !</h2>
+        <div className="score">
+          {score} / {total}
+        </div>
+        <p>Vous avez obtenu {percentage}% de bonnes réponses</p>
+      </div>
     </div>
   );
 }

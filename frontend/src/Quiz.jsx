@@ -13,7 +13,10 @@ function Quiz() {
   useEffect(() => {
     fetch("http://localhost:8000/questions/")
       .then((response) => response.json())
-      .then((data) => setQuestions(data));
+      .then((data) => {
+        setQuestions(data);
+        setCurrentQuestionIndex(data.length - 1);
+      });
   }, []);
 
   const handleAnswer = (isCorrect) => {

@@ -38,16 +38,6 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
     <div className="page">
       <h1>{question.title}</h1>
       <div className="quiz-container">
-        <div className="image-container">
-          <img
-            src={
-              validated ? question.image_explanation_url : question.image_url
-            }
-            alt="Question"
-            className="question-image"
-          />
-          {validated && <Explanation question={question} />}
-        </div>
         <div className="question-container">
           <h2 className="question-number">
             Question {questionNumber} / {totalQuestions}
@@ -99,6 +89,16 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
             </div>
             {validated && <Takeaway question={question} />}
           </form>
+        </div>
+        <div className="image-container">
+          <img
+            src={
+              validated ? question.image_explanation_url : question.image_url
+            }
+            alt="Question"
+            className="question-image"
+          />
+          {validated && <Explanation question={question} />}
         </div>
       </div>
     </div>

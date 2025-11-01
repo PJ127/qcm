@@ -1,0 +1,50 @@
+.result-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding-left: 250px; /* Make room for left sidebar */
+  transition: padding-left 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* When sidebar is hidden on mobile, adjust padding */
+@media (max-width: 768px) {
+  .result-page {
+    padding-left: 0;
+  }
+}
+
+.result-container {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px;
+}
+
+.result-container h2 {
+  font-size: 2.5em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.result-container p {
+  font-size: 1.5em;
+  color: #666;
+  margin: 10px 0;
+}
+
+.score {
+  font-size: 3em;
+  font-weight: 700;
+  color: #667eea;
+  margin: 20px 0;
+}

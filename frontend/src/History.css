@@ -1,10 +1,10 @@
 .sidebar {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   height: 100vh;
   background-color: #f8f9fa;
-  border-left: 2px solid #dee2e6;
+  border-right: 2px solid #dee2e6;
   transition: transform 0.3s ease;
   z-index: 1000;
   display: flex;
@@ -13,27 +13,29 @@
 
 .sidebar.visible {
   transform: translateX(0);
-  width: 200px;
+  width: 250px;
 }
 
 .sidebar.hidden {
-  transform: translateX(100%);
-  width: 200px;
+  transform: translateX(-100%);
+  width: 250px;
 }
 
 .sidebar-toggle {
   position: absolute;
-  left: -40px;
+  right: -40px;
   top: 50%;
   transform: translateY(-50%);
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px 0 0 5px;
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.2s ease;
   z-index: 1001;
+  padding: 10px 5px;
+  display: none; /* Hidden by default on desktop */
 }
 
 .sidebar-toggle:hover {
@@ -41,9 +43,11 @@
 }
 
 .sidebar-content {
-  padding: 20px 0px;
+  padding: 20px 10px;
   flex: 1;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-content h3 {
@@ -57,6 +61,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .question-indicator {
@@ -110,19 +116,58 @@
   transform: scale(1.05);
 }
 
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid #dee2e6;
+}
+
+.footer-button {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.contact-button:hover {
+  background-color: #0056b3;
+}
+
+.contribuer-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.contribuer-button:hover {
+  background-color: #1e7e34;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .sidebar.visible {
-    width: 150px;
+    width: 200px;
   }
 
   .sidebar.hidden {
-    width: 150px;
+    width: 200px;
   }
 
   .sidebar-toggle {
-    left: -35px;
+    right: -35px;
     padding: 8px 6px;
     font-size: 14px;
+    display: block; /* Show toggle button on mobile */
   }
 }
