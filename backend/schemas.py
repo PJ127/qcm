@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from typing import Optional
+from typing import Optional, List, Dict, Any
 
 
 class ChoiceBase(BaseModel):
@@ -59,3 +59,17 @@ class Response(ResponseBase):
 
     class Config:
         orm_mode = True
+
+
+class ContactBase(BaseModel):
+    email: str
+    nom: str = ""
+    prenom: str = ""
+    raison: str = "autre"
+    message: str
+    contact_type: str = "contact"
+    attachments: Optional[List[Dict[str, Any]]] = None
+
+
+class Contact(ContactBase):
+    pass

@@ -82,7 +82,7 @@ function History({ questions, currentQuestionIndex, onQuestionSelect }) {
               className="footer-button contribuer-button"
               onClick={handleContribuerClick}
             >
-              Contribuer
+              Contribuer au questionnaire
             </button>
           </div>
         </div>

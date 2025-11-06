@@ -12,6 +12,7 @@ function ContactModal({ isOpen, onClose, type }) {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+  const [attachments, setAttachments] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +27,25 @@ function ContactModal({ isOpen, onClose, type }) {
         [name]: "",
       }));
     }
+  };
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Data = reader.result.split(",")[1];
+        setAttachments((prev) => [
+          ...prev,
+          { filename: file.name, data: base64Data },
+        ]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeAttachment = (index) => {
+    setAttachments((prev) => prev.filter((_, i) => i !== index));
   };
 
   const validateForm = () => {
@@ -54,35 +74,44 @@ function ContactModal({ isOpen, onClose, type }) {
 
     setIsSubmitting(true);
 
-    // Construct mailto link
-    const subject =
-      type === "contribuer"
-        ? "Contribution - Pourquoi Vacciner"
-        : "Contact - Pourquoi Vacciner";
-    const body = `Nom: ${formData.nom || "Non renseigné"}
-Prénom: ${formData.prenom || "Non renseigné"}
-Raison: ${formData.raison}
-Courriel: ${formData.email}
+    try {
+      // Send email via API
+      const response = await fetch("http://localhost:8000/contact/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          nom: formData.nom,
+          prenom: formData.prenom,
+          raison: formData.raison,
+          message: formData.message,
+          contact_type: type,
+          attachments: attachments.length > 0 ? attachments : undefined,
+        }),
+      });
 
-Message:
-${formData.message}`;
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
 
-    const mailtoLink = `mailto:contact@pourquoi-vacciner.fr?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+      setSubmitMessage(
+        "Votre message a été envoyé avec succès ! Vous allez recevoir une copie par email."
+      );
 
-    // Open email client
-    window.location.href = mailtoLink;
-
-    setSubmitMessage(
-      "Votre client de messagerie va s'ouvrir. Merci pour votre message !"
-    );
-    setIsSubmitting(false);
-
-    // Reset form after a delay
-    setTimeout(() => {
-      handleClose();
-    }, 2000);
+      // Reset form after a delay
+      setTimeout(() => {
+        handleClose();
+      }, 3000);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      setSubmitMessage(
+        "Une erreur est survenue. Veuillez réessayer plus tard ou écrire directement à contact@pourquoi-vacciner.fr"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -95,6 +124,7 @@ ${formData.message}`;
     });
     setErrors({});
     setSubmitMessage("");
+    setAttachments([]);
     onClose();
   };
 
@@ -171,6 +201,7 @@ ${formData.message}`;
             >
               <option value="correction">Apporter une correction</option>
               <option value="question">Proposer une question</option>
+              <option value="courbes">Donner des courbes officielles</option>
               <option value="autre">Autre</option>
             </select>
           </div>
@@ -190,6 +221,38 @@ ${formData.message}`;
             />
             {errors.message && (
               <span className="error-message">{errors.message}</span>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="attachments">
+              Pièces jointes{" "}
+              <span style={{ fontSize: "0.9em", color: "#666" }}>
+                (optionnel)
+              </span>
+            </label>
+            <input
+              type="file"
+              id="attachments"
+              onChange={handleFileChange}
+              multiple
+              className="file-input"
+            />
+            {attachments.length > 0 && (
+              <div className="attachments-list">
+                {attachments.map((att, index) => (
+                  <div key={index} className="attachment-item">
+                    <span className="attachment-name">📎 {att.filename}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeAttachment(index)}
+                      className="remove-attachment"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
