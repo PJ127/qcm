@@ -22,7 +22,6 @@ SMTP_PORT = int(os.getenv("SMTP_PORT", "465"))
 SMTP_USER = os.getenv("SMTP_USER", "contact@pourquoi-vacciner.fr")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "changethis")
 SMPT_USER = "contact@pourquoi-vacciner.fr"
-SMPT_PASSWORD = "changethis"
 
 async def test_smtp():
     """Test SMTP connection"""
@@ -46,8 +45,8 @@ async def test_smtp():
                     # await smtp.login(SMTP_USER, SMTP_PASSWORD)
                     await smtp.connect()
                     await smtp.login(
-                        "contact@pourquoi-vacciner.fr",  # Adresse email complète
-                        "changethis",  # Mot de passe IONOS
+                        SMTP_USER,
+                        SMTP_PASSWORD
                     )                    
                     print("✓ Authentication successful")
                 else:
