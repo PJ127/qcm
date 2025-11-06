@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Question from "./Question";
 import Result from "./Result";
 import History from "./History";
+import { API_BASE_URL } from "./config";
 
 function Quiz() {
   const [questions, setQuestions] = useState([]);
@@ -11,7 +12,7 @@ function Quiz() {
   const [responses, setResponses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/questions/")
+    fetch(`${API_BASE_URL}/questions/`)
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data);

@@ -21,10 +21,12 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 # Configure CORS
+# Note: allow_credentials=True cannot be used with allow_origins=["*"]
+# If you need credentials, specify explicit origins instead of "*"
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Permet toutes les origines
-    allow_credentials=True,
+    allow_credentials=False,  # Changed to False to work with wildcard origins
     allow_methods=["*"],  # Permet toutes les méthodes
     allow_headers=["*"],  # Permet tous les en-têtes
 )

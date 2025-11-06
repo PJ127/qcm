@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ContactModal.css";
+import { API_BASE_URL } from "./config";
 
 function ContactModal({ isOpen, onClose, type }) {
   const [formData, setFormData] = useState({
@@ -76,7 +77,7 @@ function ContactModal({ isOpen, onClose, type }) {
 
     try {
       // Send email via API
-      const response = await fetch("http://localhost:8000/contact/", {
+      const response = await fetch(`${API_BASE_URL}/contact/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
