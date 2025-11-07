@@ -12,10 +12,15 @@ export default defineConfig({
       protocol: "wss", // Utilise wss si le site est en HTTPS, sinon 'ws'
       clientPort: 443, // Port HTTPS standard, ajustez si nécessaire
     },
-    // Si vous utilisez un reverse proxy, vous pouvez aussi configurer :
-    // strictPort: true,
-    // watch: {
-    //   usePolling: true
-    // }
+    // Configuration du proxy pour éviter les problèmes CORS
+    // Les requêtes vers /api seront redirigées vers le backend FastAPI
+    proxy: {
+      "/api": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""), // Enlève /api du chemin
+        secure: false, // Si vous utilisez HTTPS avec certificat auto-signé
+      },
+    },
   },
 });
