@@ -2,10 +2,13 @@ import os
 import logging
 import traceback
 import base64
+import mimetypes
+from urllib.parse import quote
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
+from email.header import Header
 import aiosmtplib
 from dotenv import load_dotenv
 import aiosmtplib
@@ -36,10 +39,36 @@ def attach_file_to_message(msg: MIMEMultipart, file_data: bytes, filename: str):
         file_data: The file data as bytes
         filename: The name of the file
     """
-    attachment = MIMEBase('application', 'octet-stream')
+    # Detect MIME type based on file extension
+    mime_type, _ = mimetypes.guess_type(filename)
+    if mime_type is None:
+        mime_type = 'application/octet-stream'
+    
+    main_type, sub_type = mime_type.split('/', 1)
+    
+    attachment = MIMEBase(main_type, sub_type)
     attachment.set_payload(file_data)
     encoders.encode_base64(attachment)
-    attachment.add_header('Content-Disposition', f'attachment; filename= {filename}')
+    
+    # Encode filename properly to handle special characters and non-ASCII
+    # Use a format that's compatible with most email clients
+    try:
+        # Try to encode as ASCII first
+        filename.encode('ascii')
+        # ASCII-only filename, use simple quoted format
+        attachment.add_header(
+            'Content-Disposition',
+            f'attachment; filename="{filename}"'
+        )
+    except UnicodeEncodeError:
+        # Non-ASCII characters, use RFC 5987 format (filename*=UTF-8''encoded)
+        # URL-encode the filename to avoid issues
+        encoded_filename = quote(filename.encode('utf-8'))
+        attachment.add_header(
+            'Content-Disposition',
+            f'attachment; filename="{filename}"; filename*=UTF-8\'\'{encoded_filename}'
+        )
+    
     msg.attach(attachment)
 
 
