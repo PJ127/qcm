@@ -27,8 +27,10 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Permet toutes les origines
     allow_credentials=False,  # Changed to False to work with wildcard origins
-    allow_methods=["*"],  # Permet toutes les méthodes
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],  # Méthodes explicites
     allow_headers=["*"],  # Permet tous les en-têtes
+    expose_headers=["*"],  # Expose tous les en-têtes
+    max_age=3600,  # Cache les résultats de préflight pendant 1 heure
 )
 
 
