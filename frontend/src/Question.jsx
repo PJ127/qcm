@@ -7,6 +7,7 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
   const [validated, setValidated] = React.useState(false);
   const [answerId, setAnswerId] = React.useState(null);
   const [isCorrect, setIsCorrect] = React.useState(null);
+  const takeawayRef = React.useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +32,18 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
     setAnswerId(question.answer_id);
     question.is_reached = true;
   }, [question]);
+
+  // Scroll to takeaway when answer is validated
+  React.useEffect(() => {
+    if (validated && takeawayRef.current) {
+      setTimeout(() => {
+        takeawayRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }, 100);
+    }
+  }, [validated]);
 
   const validatedClass = validated ? "validated" : "";
 
@@ -90,7 +103,7 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
               </div>
             </form>
           </div>
-          <div className="takeaway-container">
+          <div ref={takeawayRef}>
             {validated && <Takeaway question={question} />}
           </div>
         </div>

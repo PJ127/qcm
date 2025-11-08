@@ -4,9 +4,9 @@ import { SafeHTML } from "./utils/htmlUtils.jsx";
 
 function Takeaway({ question }) {
   return (
-    // <div id="takeaway">
-    <SafeHTML html={question.takeaway} id="takeaway" />
-    // </div>
+    <div className="takeaway-container">
+      <SafeHTML html={question.takeaway} id="takeaway" />
+    </div>
   );
 }
 
