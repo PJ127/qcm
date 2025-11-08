@@ -21,8 +21,9 @@
   gap: 30px;
   /* background-color: red; */
   height: 90vh;
-  min-width: 100%;
-  width: 100%;
+  max-width: 95%;
+  min-width: 95%;
+  width: 95%;
   padding: 20px;
 }
 
@@ -52,9 +53,9 @@ h1 {
 .question-image {
   padding: 20px;
   background-color: #f5f5f5;
-  width: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  width: 95%;
+  max-width: 95%;
+  max-height: 95%;
   object-fit: contain;
   object-position: top;
   border: 2px solid #e0e0e0;
