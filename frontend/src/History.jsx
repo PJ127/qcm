@@ -72,6 +72,18 @@ function History({ questions, currentQuestionIndex, onQuestionSelect }) {
             ))}
           </div>
           <div className="sidebar-footer">
+            <a
+              href="http://pourquoi-vacciner.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="logo-link"
+            >
+              <img
+                src="/logo-pqv.png"
+                alt="Pourquoi Vacciner"
+                className="logo-image no-display-on-click"
+              />
+            </a>
             <button
               className="footer-button contact-button"
               onClick={handleContactClick}

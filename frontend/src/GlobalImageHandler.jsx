@@ -12,6 +12,9 @@ function GlobalImageHandler({ onImageClick }) {
         if (img.dataset.hasClickHandler) {
           return;
         }
+        if (img.classList.contains("no-display-on-click")) {
+          return;
+        }
 
         // Add clickable styling
         img.style.cursor = "pointer";
