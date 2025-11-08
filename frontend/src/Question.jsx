@@ -38,58 +38,63 @@ function Question({ question, onAnswer, questionNumber, totalQuestions }) {
     <div className="page">
       <h1>{question.title}</h1>
       <div className="quiz-container">
-        <div className="question-container">
-          <h2 className="question-number">
-            Question {questionNumber} / {totalQuestions}
-          </h2>
-          <p className="question-text">{question.text}</p>
-          <form className="choices-container" onSubmit={handleSubmit}>
-            {question.choices.map((choice) => {
-              let labelClass = "radiobutton";
-              if (validated) {
-                if (choice.is_correct) {
-                  labelClass += " correct";
-                } else if (answerId === choice.id) {
-                  labelClass += " incorrect";
+        <div className="question-and-takeaway-container">
+          <div className="question-container">
+            <h2 className="question-number">
+              Question {questionNumber} / {totalQuestions}
+            </h2>
+            <p className="question-text">{question.text}</p>
+            <form className="choices-container" onSubmit={handleSubmit}>
+              {question.choices.map((choice) => {
+                let labelClass = "radiobutton";
+                if (validated) {
+                  if (choice.is_correct) {
+                    labelClass += " correct";
+                  } else if (answerId === choice.id) {
+                    labelClass += " incorrect";
+                  }
                 }
-              }
-              return (
-                <label key={choice.id} className={labelClass}>
-                  <input
-                    type="radio"
-                    name="choice"
-                    value={choice.id}
-                    checked={answerId === choice.id}
-                    onChange={() => setAnswerId(choice.id)}
-                    className="choice-radio"
-                    required={!validated}
-                    disabled={validated}
-                  />
-                  {choice.text}
-                </label>
-              );
-            })}
-            <div id="answer-and-submit-container">
-              {validated && (
-                <span
-                  id="correct-answer"
-                  className={isCorrect ? "correct" : "incorrect"}
+                return (
+                  <label key={choice.id} className={labelClass}>
+                    <input
+                      type="radio"
+                      name="choice"
+                      value={choice.id}
+                      checked={answerId === choice.id}
+                      onChange={() => setAnswerId(choice.id)}
+                      className="choice-radio"
+                      required={!validated}
+                      disabled={validated}
+                    />
+                    {choice.text}
+                  </label>
+                );
+              })}
+              <div id="answer-and-submit-container">
+                {validated && (
+                  <span
+                    id="correct-answer"
+                    className={isCorrect ? "correct" : "incorrect"}
+                  >
+                    {isCorrect ? "Bonne réponse !" : "Mauvaise réponse !"}
+                  </span>
+                )}
+                <button
+                  type="submit"
+                  id="choice-button"
+                  className={validatedClass}
+                  disabled={answerId === null && !validated}
                 >
-                  {isCorrect ? "Bonne réponse !" : "Mauvaise réponse !"}
-                </span>
-              )}
-              <button
-                type="submit"
-                id="choice-button"
-                className={validatedClass}
-                disabled={answerId === null && !validated}
-              >
-                {validated ? "Suivant" : "Valider"}
-              </button>
-            </div>
+                  {validated ? "Suivant" : "Valider"}
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="takeaway-container">
             {validated && <Takeaway question={question} />}
-          </form>
+          </div>
         </div>
+        <div className="separator"></div>
         <div className="image-container">
           <img
             src={

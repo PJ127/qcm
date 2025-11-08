@@ -16,7 +16,7 @@ function Quiz() {
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data);
-        setCurrentQuestionIndex(data.length - 1);
+        // setCurrentQuestionIndex(data.length - 1);
       });
   }, []);
 
@@ -43,6 +43,11 @@ function Quiz() {
 
   return (
     <div>
+      <History
+        questions={questions}
+        currentQuestionIndex={currentQuestionIndex}
+        onQuestionSelect={handleQuestionSelect}
+      />
       {questions.length > 0 && (
         <Question
           question={questions[currentQuestionIndex]}
@@ -51,11 +56,6 @@ function Quiz() {
           totalQuestions={questions.length}
         />
       )}
-      <History
-        questions={questions}
-        currentQuestionIndex={currentQuestionIndex}
-        onQuestionSelect={handleQuestionSelect}
-      />
     </div>
   );
 }
